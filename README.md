@@ -56,7 +56,7 @@ You can customize the following parameters in real-time:
 ---
 
 ## Features & Controls
-* **Localization:** Support for multiple languages. To add a new language, create a new JSON language file.
+* **Localization:** Support for multiple languages.
 * **Save/Load:** Save your custom game settings to a file or load previously saved configurations.
 * **Reset:** Restarts the simulation. This clears the field and resets the population while keeping your current settings.
 * **Pause/Resume:** Use the "Pause" button to halt the simulation and "Resume" to continue.
