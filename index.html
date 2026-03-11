@@ -1866,14 +1866,40 @@ let currentLang = languages.en;
         }
 
 
+        // helper to store language using localStorage (works with file:// too)
+        function savePreferredLang(code) {
+            try {
+                localStorage.setItem('preferredLang', code);
+            } catch (e) {
+                // if storage is disabled for some reason, fail silently
+            }
+        }
+
+        function loadPreferredLang() {
+            try {
+                return localStorage.getItem('preferredLang');
+            } catch (e) {
+                return null;
+            }
+        }
+
         document.getElementById('langSelect').addEventListener('change', (e) => {
             const selectedCode = e.target.value;
             const langData = languages[selectedCode];
     
             if (langData) {
                 applyLanguage(langData);
+                savePreferredLang(selectedCode);
             }
         });
+        
+        // when the page loads, check if a preference is stored
+        const savedLang = loadPreferredLang();
+        if (savedLang && languages[savedLang]) {
+            // select value and apply
+            document.getElementById('langSelect').value = savedLang;
+            applyLanguage(languages[savedLang]);
+        }
 
 
         setupControls();
