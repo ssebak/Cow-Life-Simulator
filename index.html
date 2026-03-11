@@ -243,7 +243,11 @@
                 <input type="range" id="startCows" min="1" max="200" value="50">
             </div>
             <div class="control-group">
-                <label><span id="ui-grassGrow">Grass growth time (s)</span>: <span id="grassGrowVal" class="val">100</span></label>
+                <label>
+                    <span id="ui-grassGrow">Grass growth time (s)</span> 
+                    <span id="grassPenalty" style="color: #ff4444; font-weight: bold;"></span>: 
+                    <span id="grassGrowVal" class="val">100</span>
+                </label>
                 <input type="range" id="grassGrow" min="5" max="120" value="100">
             </div>
             <div class="control-group">
@@ -1410,6 +1414,18 @@ let currentLang = languages.en;
             updateUI(0);
         }
 
+
+
+
+        function getGrassPenaltyFactor(cowCount) {
+            if (cowCount < 100) return 1.0;
+            return cowCount / 100;
+        }
+
+
+
+
+
         function generateTerrainArea(type, targetCount) {
             let startX, startY;
             do {
@@ -1479,16 +1495,24 @@ let currentLang = languages.en;
             totalElapsed += dt;
             historyTimer += dt;
 
+            const penalty = getGrassPenaltyFactor(cows.length);
+            const effectiveGrowTime = config.grassGrowTime * penalty;
+
             if (historyTimer >= 1.0) {
                 populationHistory.push(cows.length);
+
                 if (populationHistory.length > 300) populationHistory.shift();
+
+                // Enable to see getGrassPenaltyFactor in browser Console
+                //console.log(`[Overgrazing Test] Cows: ${cows.length} | Factor: ${penalty.toFixed(2)}x | Effective Grow Time: ${effectiveGrowTime.toFixed(1)}s`);
+
                 historyTimer = 0;
             }
 
             for (let x = 0; x < gridSize; x++) {
                 for (let y = 0; y < gridSize; y++) {
                     if (cells[x][y].type === 'grass' && cells[x][y].growth < 1.0) {
-                        cells[x][y].growth += dt / config.grassGrowTime;
+                        cells[x][y].growth += dt / effectiveGrowTime;
                         if (cells[x][y].growth > 1.0) cells[x][y].growth = 1.0;
                     }
                 }
@@ -1626,6 +1650,18 @@ let currentLang = languages.en;
                 avgHungerEl.innerText = "0.0s";
                 avgHungerEl.style.color = "#2ecc71";
             }
+
+            const penaltySpan = document.getElementById('grassPenalty');
+            if (penaltySpan) {
+                const penalty = getGrassPenaltyFactor(cows.length);
+                if (penalty > 1.0) {
+                    penaltySpan.textContent = ` (${penalty.toFixed(2)}x)`;
+                } else {
+                    penaltySpan.textContent = '';
+                }
+            }
+
+
 
             document.getElementById('maxCows').innerText = stats.maxCows;
             document.getElementById('minCows').innerText = stats.minCows;
