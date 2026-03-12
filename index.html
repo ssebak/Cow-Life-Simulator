@@ -1418,8 +1418,8 @@ let currentLang = languages.en;
 
 
         function getGrassPenaltyFactor(cowCount) {
-            if (cowCount < 100) return 1.0;
-            return cowCount / 100;
+            if (cowCount < 200) return 1.0;
+            return (cowCount / 100) * 0.5;
         }
 
 
