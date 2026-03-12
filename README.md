@@ -59,10 +59,9 @@ You can customize the following parameters in real-time:
 To simulate a realistic ecosystem, the simulator features an **overgrazing mechanic**. When the cow population grows too large, the environment struggles to recover, causing grass to grow slower.
 
 ### How it works:
-- **Optimal Conditions:** As long as the population is below 100 cows, grass grows at the base rate selected in the settings.
-- **Overgrazing Penalty:** Once the population exceeds 100, a penalty factor is applied. The growth time is multiplied by the population divided by 100.
-  - *Example:* 250 cows = **2.5x** slower growth.
-  - *Example:* 500 cows = **5.0x** slower growth.
+- **Optimal Conditions:** As long as the population is below 200 cows, grass grows at the base rate selected in the settings.
+- **Overgrazing Penalty:** Once the population exceeds 200, a penalty factor is applied.
+  - Effective Growth Time = Base Rate * ((Cow Count / 100) * 0.5)
 
 ### Visual Feedback
 When overgrazing is active, a red multiplier (e.g., `2.50x`) will appear next to the **Grass growth time** label in the UI, indicating the current environmental strain.
