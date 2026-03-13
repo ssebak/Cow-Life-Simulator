@@ -352,6 +352,37 @@
         canvas.height = gridSize * cellSize;
 
 
+// Disaster
+
+
+let disasterActive = false;
+let disasterType = "";
+let disasterTimer = 0;
+let disastersOccurred = { illness: false, flood: false, fire: false };
+let affectedCells = [];
+let sickCows = [];
+let disasterPermanentAffected = [];
+let isBlinkingRed = false;
+
+
+let easterEggCounters = {
+    illness: 0,
+    fire: 0,
+    flood: 0
+};
+
+// Disaster
+
+
+
+
+
+
+
+
+
+
+
 const languages = {
     English: {
         "title": "🐄 Cow Life Simulator",
@@ -390,7 +421,10 @@ const languages = {
         "legEaten": "Eaten grass",
         "legStone": "Stones",
         "avgHunger": "Average hunger",
-        "legWater": "Water"
+        "legWater": "Water",
+        "disasterIllness": "!!! DISEASE OUTBREAK !!!",
+        "disasterFlood": "!!! FLOOD !!!",
+        "disasterFire": "!!! FIRE !!!"
     },
     Norsk: {
         "title": "🐄 Ku-liv-simulator",
@@ -429,7 +463,13 @@ const languages = {
         "legEaten": "Oppspist gress",
         "legStone": "Steiner",
         "avgHunger": "Snitt sult",
-        "legWater": "Vann"
+        "legWater": "Vann",
+        "disasterIllness": "!!! SYKDOMSUTBRUDD !!!",
+        "disasterFlood": "!!! FLOM !!!",
+        "disasterFire": "!!! BRANN !!!",
+        "disasterIllness": "!!! SYKDOMSUTBRUDD !!!",
+        "disasterFlood": "!!! FLOM !!!",
+        "disasterFire": "!!! BRANN !!!"
     },
     Spanish: {
         "title": "🐄 Simulador de Vida de Vaca",
@@ -468,7 +508,10 @@ const languages = {
         "legEaten": "Pasto comido",
         "legStone": "Piedras",
         "avgHunger": "Hambre promedio",
-        "legWater": "Agua"
+        "legWater": "Agua",
+        "disasterIllness": "!!! BROTE DE ENFERMEDAD !!!",
+        "disasterFlood": "!!! INUNDACIÓN !!!",
+        "disasterFire": "!!! FUEGO !!!"
     },
     German: {
         "title": "🐄 Kuh-Leben-Simulator",
@@ -507,7 +550,10 @@ const languages = {
         "legEaten": "Gegessenes Gras",
         "legStone": "Steine",
         "avgHunger": "Durchschnittlicher Hunger",
-        "legWater": "Wasser"
+        "legWater": "Wasser",
+        "disasterIllness": "!!! KRANKHEITSAUSBRUCH !!!",
+        "disasterFlood": "!!! HOCHWASSER !!!",
+        "disasterFire": "!!! FEUER !!!"
     },
 French: {
         "title": "🐄 Simulateur de Vie de Vache",
@@ -546,7 +592,10 @@ French: {
         "legEaten": "Herbe mangée",
         "legStone": "Pierres",
         "avgHunger": "Faim moyenne",
-        "legWater": "Eau"
+        "legWater": "Eau",
+        "disasterIllness": "!!! ÉPIDÉMIE !!!",
+        "disasterFlood": "!!! INONDATION !!!",
+        "disasterFire": "!!! FEU !!!"
     },
 Chinese: {
         "title": "🐄 奶牛生存模拟器",
@@ -585,7 +634,10 @@ Chinese: {
         "legEaten": "被啃食的土地",
         "legStone": "岩石",
         "avgHunger": "平均饥饿度",
-        "legWater": "水源"
+        "legWater": "水源",
+        "disasterIllness": "!!! 疾病爆发 !!!",
+        "disasterFlood": "!!! 洪水 !!!",
+        "disasterFire": "!!! 火灾 !!!"
     },
 Hindi: {
         "title": "🐄 गाय जीवन सिम्युलेटर",
@@ -624,7 +676,10 @@ Hindi: {
         "legEaten": "खाई गई घास",
         "legStone": "पत्थर",
         "avgHunger": "औसत भूख",
-        "legWater": "पानी"
+        "legWater": "पानी",
+        "disasterIllness": "!!! बीमारी का प्रकोप !!!",
+        "disasterFlood": "!!! बाढ़ !!!",
+        "disasterFire": "!!! आग !!!"
     },
 Arabic: {
         "title": "🐄 محاكي حياة البقر",
@@ -663,7 +718,10 @@ Arabic: {
         "legEaten": "عشب مأكول",
         "legStone": "صخور",
         "avgHunger": "متوسط الجوع",
-        "legWater": "ماء"
+        "legWater": "ماء",
+        "disasterIllness": "!!! تفشي المرض !!!",
+        "disasterFlood": "!!! فيضان !!!",
+        "disasterFire": "!!! حريق !!!"
     },
 Russian: {
         "title": "🐄 Симулятор жизни коровы",
@@ -702,7 +760,10 @@ Russian: {
         "legEaten": "Съеденная трава",
         "legStone": "Камни",
         "avgHunger": "Средний голод",
-        "legWater": "Вода"
+        "legWater": "Вода",
+        "disasterIllness": "!!! ВСПЫШКА БОЛЕЗНИ !!!",
+        "disasterFlood": "!!! НАВОДНЕНИЕ !!!",
+        "disasterFire": "!!! ПОЖАР !!!"
     },
 Italian: {
         "title": "🐄 Simulatore di Vita della Mucca",
@@ -741,7 +802,10 @@ Italian: {
         "legEaten": "Erba mangiata",
         "legStone": "Pietre",
         "avgHunger": "Fame media",
-        "legWater": "Acqua"
+        "legWater": "Acqua",
+        "disasterIllness": "!!! EPIDEMIA !!!",
+        "disasterFlood": "!!! ALLUVIONE !!!",
+        "disasterFire": "!!! FUOCO !!!"
     },
 Portuguese: {
         "title": "🐄 Simulador de Vida de Vaca",
@@ -780,7 +844,10 @@ Portuguese: {
         "legEaten": "Erva comida",
         "legStone": "Pedras",
         "avgHunger": "Fome média",
-        "legWater": "Água"
+        "legWater": "Água",
+        "disasterIllness": "!!! SURTO DE DOENÇA !!!",
+        "disasterFlood": "!!! INUNDAÇÃO !!!",
+        "disasterFire": "!!! FOGO !!!"
     },
 Japanese: {
         "title": "🐄 牛の生活シミュレーター",
@@ -819,7 +886,10 @@ Japanese: {
         "legEaten": "食べられた草",
         "legStone": "石",
         "avgHunger": "平均空腹度",
-        "legWater": "水"
+        "legWater": "水",
+        "disasterIllness": "!!! 疾病発生 !!!",
+        "disasterFlood": "!!! 洪水 !!!",
+        "disasterFire": "!!! 火災 !!!"
     },
 Bengali: {
         "title": "🐄 গরুর জীবন সিমুলেটর",
@@ -858,7 +928,10 @@ Bengali: {
         "legEaten": "খাওয়া ঘাস",
         "legStone": "পাথর",
         "avgHunger": "গড় ক্ষুধা",
-        "legWater": "জল"
+        "legWater": "জল",
+        "disasterIllness": "!!! রোগ প্রাদুর্ভাব !!!",
+        "disasterFlood": "!!! বন্যা !!!",
+        "disasterFire": "!!! আগুন !!!"
     },
 Vietnamese: {
         "title": "🐄 Trình giả lập đời sống bò",
@@ -897,7 +970,10 @@ Vietnamese: {
         "legEaten": "Cỏ đã bị ăn",
         "legStone": "Đá",
         "avgHunger": "Độ đói trung bình",
-        "legWater": "Nước"
+        "legWater": "Nước",
+        "disasterIllness": "!!! DỊCH BỆNH BÙNG PHÁT !!!",
+        "disasterFlood": "!!! LŨ LỤT !!!",
+        "disasterFire": "!!! HỎA HOẠN !!!"
     },
 Indonesian: {
         "title": "🐄 Simulator Kehidupan Sapi",
@@ -936,10 +1012,13 @@ Indonesian: {
         "legEaten": "Rumput dimakan",
         "legStone": "Batu",
         "avgHunger": "Rata-rata lapar",
-        "legWater": "Air"
+        "legWater": "Air",
+        "disasterIllness": "!!! WABAH PENYAKIT !!!",
+        "disasterFlood": "!!! BANJIR !!!",
+        "disasterFire": "!!! KEBAKARAN !!!"
     },
 Urdu: {
-        "title": "🐄 گائے کی زندگی کا سمیلیٹر",
+    "title": "🐄 گائے کی زندگی کا سمیلیٹر",
         "startCows": "ابتدائی گائے (#)",
         "grassGrow": "گھاس اگنے کا وقت (سیکنڈ)",
         "eatTime": "کھانے کا وقت (سیکنڈ)",
@@ -975,7 +1054,10 @@ Urdu: {
         "legEaten": "کھائی گئی گھاس",
         "legStone": "پتھر",
         "avgHunger": "اوسط بھوک",
-        "legWater": "پانی"
+        "legWater": "پانی",
+        "disasterIllness": "!!! بیماری کا پھیلاؤ !!!",
+        "disasterFlood": "!!! سیلاب !!!",
+        "disasterFire": "!!! آگ !!!"
     },
 Turkish: {
         "title": "🐄 İnek Yaşam Simülatörü",
@@ -1014,7 +1096,10 @@ Turkish: {
         "legEaten": "Yenmiş ot",
         "legStone": "Taşlar",
         "avgHunger": "Ortalama açlık",
-        "legWater": "Su"
+        "legWater": "Su",
+        "disasterIllness": "!!! SALGIN HASTALIK !!!",
+        "disasterFlood": "!!! SEL !!!",
+        "disasterFire": "!!! YANGIN !!!"
     },
 Icelandic: {
         "title": "🐄 Kýra-lífshermir",
@@ -1053,7 +1138,10 @@ Icelandic: {
         "legEaten": "Étið gras",
         "legStone": "Steinar",
         "avgHunger": "Meðalhungur",
-        "legWater": "Vatn"
+        "legWater": "Vatn",
+        "disasterIllness": "!!! SJÚKDÓMSFARALDUR !!!",
+        "disasterFlood": "!!! FLÓÐ !!!",
+        "disasterFire": "!!! ELDUR !!!"
     },
 Sami: {
         "title": "🐄 Gusa eallin-simuláhtor",
@@ -1092,7 +1180,10 @@ Sami: {
         "legEaten": "Buvttaduvvon eatnamat",
         "legStone": "Geađggit",
         "avgHunger": "Gaskamearálaš nealgi",
-        "legWater": "Čáhci"
+        "legWater": "Čáhci",
+        "disasterIllness": "!!! DÁVDADOHPPU !!!",
+        "disasterFlood": "!!! DULVI !!!",
+        "disasterFire": "!!! BUOLLIN !!!"
     },
 Nynorsk: {
         "title": "🐄 Livssimulator for ku",
@@ -1131,7 +1222,10 @@ Nynorsk: {
         "legEaten": "Nedete gras",
         "legStone": "Steinar",
         "avgHunger": "Gjennomsnittleg svolt",
-        "legWater": "Vatn"
+        "legWater": "Vatn",
+        "disasterIllness": "!!! SJUKDOMSUTBROT !!!",
+        "disasterFlood": "!!! FLAUM !!!",
+        "disasterFire": "!!! BRANN !!!"
     },
 Korean: {
         "title": "🐄 소의 인생 시뮬레이터",
@@ -1170,7 +1264,10 @@ Korean: {
         "legEaten": "뜯긴 풀",
         "legStone": "돌",
         "avgHunger": "평균 허기",
-        "legWater": "물"
+        "legWater": "물",
+        "disasterIllness": "!!! 질병 발생 !!!",
+        "disasterFlood": "!!! 홍수 !!!",
+        "disasterFire": "!!! 화재 !!!"
     },
 Swahili: {
         "title": "🐄 Kiigizaji cha Maisha ya Ng'ombe",
@@ -1209,7 +1306,10 @@ Swahili: {
         "legEaten": "Nyasi zilizoliwa",
         "legStone": "Mawe",
         "avgHunger": "Wastani wa njaa",
-        "legWater": "Maji"
+        "legWater": "Maji",
+        "disasterIllness": "!!! MLIPUKO WA UGONJWA !!!",
+        "disasterFlood": "!!! MAFURIKO !!!",
+        "disasterFire": "!!! MOTO !!!"
     },
 Farsi: {
         "title": "🐄 شبیه‌ساز زندگی گاو",
@@ -1248,7 +1348,10 @@ Farsi: {
         "legEaten": "علف خورده شده",
         "legStone": "سنگ",
         "avgHunger": "میانگিন گرسنگی",
-        "legWater": "آب"
+        "legWater": "آب",
+        "disasterIllness": "!!! شیوع بیماری !!!",
+        "disasterFlood": "!!! سیل !!!",
+        "disasterFire": "!!! آتش سوزی !!!"
     },
 Latin: {
         "title": "🐄 Simulatio Vitae Vaccae",
@@ -1287,7 +1390,10 @@ Latin: {
         "legEaten": "Herba consumpta",
         "legStone": "Saxum",
         "avgHunger": "Fames media",
-        "legWater": "Aqua"
+        "legWater": "Aqua",
+        "disasterIllness": "!!! IMPETUS MORBI !!!",
+        "disasterFlood": "!!! INUNDATIO !!!",
+        "disasterFire": "!!! IGNIS !!!"
     },
 Quenya: {
         "title": "✨✨✨🐄 Yaxë Cuivë-tyalië ✨✨✨",
@@ -1326,12 +1432,266 @@ Quenya: {
         "legEaten": "Salquë matana",
         "legStone": "Sarni",
         "avgHunger": "Enda maita",
-        "legWater": "Nén"
+        "legWater": "Nén",
+        "disasterIllness": "!!! QALME LANTIE !!!",
+        "disasterFlood": "!!! OROLAIRE !!!",
+        "disasterFire": "!!! NÁRE !!!"
     }
 };
 
 
-let currentLang = languages.en;
+
+
+function savePreferredLang(code) {
+    try { localStorage.setItem('preferredLang', code); } catch (e) {}
+}
+
+function loadPreferredLang() {
+    try { return localStorage.getItem('preferredLang'); } catch (e) { return null; }
+}
+
+const savedLangCode = loadPreferredLang(); 
+let currentLangCode = (savedLangCode && languages[savedLangCode]) ? savedLangCode : "English";
+
+let currentLang = languages[currentLangCode];
+
+window.addEventListener('DOMContentLoaded', () => {
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        langSelect.value = currentLangCode;
+        langSelect.addEventListener('change', (e) => {
+            const selectedCode = e.target.value;
+            if (languages[selectedCode]) {
+                currentLang = languages[selectedCode];
+                applyLanguage(currentLang);
+                savePreferredLang(selectedCode);
+            }
+        });
+    }
+
+    applyLanguage(currentLang);
+});
+
+
+
+
+// Disaster
+
+function startDisaster(type) {
+    disasterActive = true;
+    disasterType = type;
+    disasterTimer = 10;
+    //If you only want one of each 3 disasters, enable the line under
+    //disastersOccurred[type] = true;
+    
+    affectedCells = [];
+    sickCows = [];
+    disasterPermanentAffected = []; 
+
+    const disasterKey = "disaster" + type.charAt(0).toUpperCase() + type.slice(1);
+    const disasterText = currentLang[disasterKey];
+    const titleEl = document.getElementById('ui-title');
+    if (titleEl) {
+        titleEl.innerText = disasterText;
+        titleEl.style.color = "#ff0000";
+    }
+
+    if (type === 'illness') {
+        let tempCows = [...cows];
+        let numToKill = Math.floor(cows.length * 0.8);
+        for (let i = 0; i < numToKill; i++) {
+            if (tempCows.length === 0) break;
+            const idx = Math.floor(Math.random() * tempCows.length);
+            sickCows.push(tempCows.splice(idx, 1)[0]);
+        }
+    }
+
+    if (type === 'fire') {
+        let grassCells = [];
+        for(let x=0; x<gridSize; x++) {
+            for(let y=0; y<gridSize; y++) {
+                if(cells[x][y].type === 'grass') grassCells.push({x, y});
+            }
+        }
+        if (grassCells.length > 0) {
+            let start = grassCells[Math.floor(Math.random() * grassCells.length)];
+            disasterPermanentAffected.push(start);
+        }
+    }
+
+
+    if (type === 'flood') {
+        let initialWaterCount = 0;
+        for(let x = 0; x < gridSize; x++) {
+            for(let y = 0; y < gridSize; y++) {
+                if(cells[x][y].type === 'water') {
+                    initialWaterCount++;
+                }
+            }
+        }
+    
+        // Target flood cells
+        disasterTargetCount = initialWaterCount * 9; 
+        if (disasterTargetCount === 0) disasterTargetCount = 30;
+        affectedCells = []; 
+        disasterPermanentAffected = [];
+    }
+
+}
+
+
+
+
+function updateDisaster(dt) {
+    let progress = (10 - disasterTimer) / 10;
+    affectedCells = [];
+
+
+
+let blink = Math.sin(Date.now() / 100); 
+
+if (disasterType === 'illness') {
+    isBlinkingRed = blink > 0; 
+}
+
+
+if (disasterType === 'flood') {
+    let currentTarget = Math.floor(disasterTargetCount * progress);
+    
+    let attempts = 0; 
+    while (disasterPermanentAffected.length < currentTarget && attempts < 50) {
+        attempts++;
+        let sourceX, sourceY;
+        
+        if (Math.random() < 0.5 || disasterPermanentAffected.length === 0) {
+            let waterNodes = [];
+            for(let x=0; x<gridSize; x++) {
+                for(let y=0; y<gridSize; y++) {
+                    if(cells[x][y].type === 'water') waterNodes.push({x,y});
+                }
+            }
+            if(waterNodes.length === 0) break; 
+            let pick = waterNodes[Math.floor(Math.random() * waterNodes.length)];
+            sourceX = pick.x; sourceY = pick.y;
+        } else {
+            let pick = disasterPermanentAffected[Math.floor(Math.random() * disasterPermanentAffected.length)];
+            sourceX = pick.x; sourceY = pick.y;
+        }
+
+        let neighbors = [
+            {x: sourceX + 1, y: sourceY}, {x: sourceX - 1, y: sourceY},
+            {x: sourceX, y: sourceY + 1}, {x: sourceX, y: sourceY - 1}
+        ];
+
+        let validNeighbors = neighbors.filter(n => 
+            n.x >= 0 && n.x < gridSize && n.y >= 0 && n.y < gridSize &&
+            cells[n.x][n.y].type !== 'water' && 
+            cells[n.x][n.y].type !== 'rock' &&
+            !disasterPermanentAffected.some(p => p.x === n.x && p.y === n.y)
+        );
+
+        if (validNeighbors.length > 0) {
+            let next = validNeighbors[Math.floor(Math.random() * validNeighbors.length)];
+            disasterPermanentAffected.push(next);
+            attempts = 0;
+        }
+    }
+    affectedCells = disasterPermanentAffected;
+}
+
+
+
+
+else if (disasterType === 'fire') {
+    const maxToBurn = (gridSize * gridSize) * 0.65;
+    
+    let targetCount = Math.floor(maxToBurn * progress);
+    
+    while (disasterPermanentAffected.length < targetCount) {
+        let current = disasterPermanentAffected[Math.floor(Math.random() * disasterPermanentAffected.length)];
+        
+        let neighbors = [
+            {x: current.x + 1, y: current.y}, {x: current.x - 1, y: current.y},
+            {x: current.x, y: current.y + 1}, {x: current.x, y: current.y - 1}
+        ];
+        
+        let validNeighbors = neighbors.filter(n => 
+            n.x >= 0 && n.x < gridSize && n.y >= 0 && n.y < gridSize &&
+            cells[n.x][n.y].type !== 'water' && 
+            cells[n.x][n.y].type !== 'rock' &&
+            !disasterPermanentAffected.some(p => p.x === n.x && p.y === n.y)
+        );
+
+        if (validNeighbors.length > 0) {
+            let next = validNeighbors[Math.floor(Math.random() * validNeighbors.length)];
+            disasterPermanentAffected.push(next);
+        } else {
+            let randomX = Math.floor(Math.random() * gridSize);
+            let randomY = Math.floor(Math.random() * gridSize);
+            if (cells[randomX][randomY].type === 'grass') {
+                disasterPermanentAffected.push({x: randomX, y: randomY});
+            }
+            break;
+        }
+    }
+    
+    affectedCells = disasterPermanentAffected;
+  }
+
+}
+
+
+
+
+
+
+function endDisaster() {
+    if (disasterType === 'illness') {
+        sickCows.forEach(cow => {
+            const idx = cows.indexOf(cow);
+            if (idx > -1) {
+                cows.splice(idx, 1);
+                stats.deadIllness++;
+            }
+        });
+    } else if (disasterType === 'fire' || disasterType === 'flood') {
+        disasterPermanentAffected.forEach(coord => {
+            let cell = cells[coord.x][coord.y];
+            
+            if (cell.type === 'grass') {
+                cell.growth = 0; 
+            }
+            
+            cows = cows.filter(cow => {
+                const cowX = Math.floor(cow.x);
+                const cowY = Math.floor(cow.y);
+                
+                if (cowX === coord.x && cowY === coord.y) {
+                    stats.deadIllness++;
+                    return false;
+                }
+                return true;
+            });
+        });
+    }
+
+    disasterActive = false;
+    disasterType = "";
+    affectedCells = [];
+    disasterPermanentAffected = [];
+    sickCows = [];
+
+    const titleEl = document.getElementById('ui-title');
+    if (titleEl && currentLang) {
+        titleEl.innerText = currentLang["title"]; 
+        titleEl.style.color = "";
+    }
+
+    updateUI();
+}
+
+
+
 
 
 
@@ -1377,6 +1737,24 @@ let currentLang = languages.en;
                 for (let y = 0; y < gridSize; y++) {
                     cells[x][y] = { growth: 1.0, type: 'grass' };
                 }
+
+    disasterActive = false;
+    disasterType = "";
+    disasterTimer = 0;
+    disastersOccurred = { illness: false, flood: false, fire: false };
+    affectedCells = [];
+    sickCows = [];
+
+    const titleEl = document.getElementById('ui-title');
+    if (titleEl && currentLang) {
+        titleEl.innerText = currentLang["title"];
+        titleEl.style.color = "";
+    }
+
+
+
+
+
             }
 
             generateTerrainArea('stone', 50);
@@ -1490,8 +1868,22 @@ let currentLang = languages.en;
             return validSpots.length > 0 ? validSpots[Math.floor(Math.random() * validSpots.length)] : null;
         }
 
-        function update(dt) {
-            if (isPaused) return;
+
+
+
+function update(dt) {
+    if (isPaused) return;
+
+    if (disasterActive) {
+        disasterTimer -= dt;
+        updateDisaster(dt); 
+        if (disasterTimer <= 0) {
+            endDisaster();
+        }
+        return;
+    }
+
+
             totalElapsed += dt;
             historyTimer += dt;
 
@@ -1500,8 +1892,45 @@ let currentLang = languages.en;
 
             if (historyTimer >= 1.0) {
                 populationHistory.push(cows.length);
-
                 if (populationHistory.length > 300) populationHistory.shift();
+
+
+
+// Check for disaster every second
+if (!disasterActive && historyTimer >= 1.0) {
+    let timeScore = totalElapsed / 100; 
+    let cowScore = cows.length   / 4;
+    let totalScore = timeScore + cowScore;
+    if (totalElapsed > 30 || cows.length > 50) {
+        let currentChance = totalScore / 5000;
+        if (cows.length < 200) {
+            if (currentChance > 0.001) currentChance = 0.001;
+        } 
+        else if (cows.length >= 200 && cows.length <= 300) {
+            let dynamicCap = 0.001 + (cows.length - 200) * (0.019 / 100);
+            if (currentChance > dynamicCap) currentChance = dynamicCap;
+        } 
+        else {
+            if (currentChance > 0.1) currentChance = 0.1;
+        }        
+        // DEBUG
+        //console.log(`DEBUG! Score: ${totalScore.toFixed(2)}, Sjanse: ${currentChance.toFixed(4)}`);
+        if (Math.random() < currentChance) {
+            const available = Object.keys(disastersOccurred).filter(k => !disastersOccurred[k]);
+            if (available.length > 0) {
+                const chosen = available[Math.floor(Math.random() * available.length)];
+                startDisaster(chosen);
+                console.log(`Risiko-treff! Score: ${totalScore.toFixed(2)}, Sjanse: ${currentChance.toFixed(4)}, Type: ${chosen}`);
+            }
+        }
+    }
+}
+
+
+
+
+
+
 
                 // Enable to see getGrassPenaltyFactor in browser Console
                 //console.log(`[Overgrazing Test] Cows: ${cows.length} | Factor: ${penalty.toFixed(2)}x | Effective Grow Time: ${effectiveGrowTime.toFixed(1)}s`);
@@ -1719,6 +2148,60 @@ let currentLang = languages.en;
                 ctx.fillRect(px, py, cellSize/2, cellSize/2);
                 ctx.fillRect(px + cellSize/2, py + cellSize/2, cellSize/2, cellSize/2);
             });
+
+
+
+
+
+if (disasterActive) {
+    if (disasterType === 'illness') {
+
+sickCows.forEach(cow => {
+        const px = cow.x * cellSize;
+        const py = cow.y * cellSize;
+
+        if (isBlinkingRed) {
+            ctx.fillStyle = "red";
+        } else {
+            ctx.fillStyle = (cow.state === 'eating') ? "#f1c40f" : "white";
+        }
+
+        ctx.fillRect(px, py, cellSize - 1, cellSize - 1);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(px, py, cellSize / 2, cellSize / 2);
+        ctx.fillRect(px + cellSize / 2, py + cellSize / 2, cellSize / 2, cellSize / 2);
+    });
+
+    } else {
+        affectedCells.forEach(c => {
+            if (disasterType === 'fire') {
+                ctx.fillStyle = "rgba(0, 0, 0, 1.0)"; 
+                ctx.fillRect(c.x * cellSize, c.y * cellSize, cellSize - 1, cellSize - 1);
+
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.font = `${Math.floor(cellSize * 0.8)}px serif`; 
+                
+                ctx.fillText("🔥", c.x * cellSize + cellSize / 2, c.y * cellSize + cellSize / 2);
+            } else {
+                ctx.globalAlpha = 0.6;
+                ctx.fillStyle = "#3498db";
+                ctx.fillRect(c.x * cellSize, c.y * cellSize, cellSize - 1, cellSize - 1);
+                ctx.globalAlpha = 1.0;
+            }
+        });
+    }
+
+
+
+
+
+}
+
+
+
+
             drawGraph();
         }
 
@@ -1763,29 +2246,45 @@ let currentLang = languages.en;
 
 
 
-        function applyLanguage(data) {
-            if (data.title) {
-                document.title = data.title;
+
+function applyLanguage(data) {
+    if (data.title) {
+        document.title = data.title;
+    }
+
+    for (let key in data) {
+        let el = document.getElementById("ui-" + key);
+        if (el) {
+            if (key === "reproLabel" || key === "maxAge" || key === "illnessChance" || key === "illnessDeath") {
+                const valSpan = el.querySelector('.val'); 
+                el.innerText = data[key] + " ";
+                if (valSpan) el.appendChild(valSpan);
+            } else {
+                el.innerText = data[key];
             }
-            for (let key in data) {
-                let el = document.getElementById("ui-" + key);
-                if (el) {
-                    if (key === "reproLabel" || key === "maxAge" || key === "illnessChance" || key === "illnessDeath") {
-                        const valSpan = el.querySelector('.val'); 
-                        el.innerText = data[key] + " ";
-                        if (valSpan) el.appendChild(valSpan);
-                    } else {
-                        el.innerText = data[key];
-                    }
-                }
-            }
-            Object.assign(lang, data); 
-            if (data.btnReset) document.getElementById('resetBtn').innerText = data.btnReset;
-            if (data.btnLoadCfg) document.getElementById('loadCfgBtn').innerText = data.btnLoadCfg;
-            if (data.btnSaveCfg) document.getElementById('saveCfgBtn').innerText = data.btnSaveCfg;
-            document.getElementById('statusText').innerText = isPaused ? lang.statusPaused : lang.statusRunning;
-            document.getElementById('pauseBtn').innerText = isPaused ? lang.btnResume : lang.btnPause;
         }
+    }
+
+    if (disasterActive) {
+        const titleEl = document.getElementById('ui-title');
+        const disasterKey = "disaster" + disasterType.charAt(0).toUpperCase() + disasterType.slice(1);
+        if (titleEl && data[disasterKey]) {
+            titleEl.innerText = data[disasterKey];
+            titleEl.style.color = "#ff0000";
+        }
+    }
+
+
+    Object.assign(lang, data); 
+    
+    if (data.btnReset) document.getElementById('resetBtn').innerText = data.btnReset;
+    if (data.btnLoadCfg) document.getElementById('loadCfgBtn').innerText = data.btnLoadCfg;
+    if (data.btnSaveCfg) document.getElementById('saveCfgBtn').innerText = data.btnSaveCfg;
+    
+    document.getElementById('statusText').innerText = isPaused ? lang.statusPaused : lang.statusRunning;
+    document.getElementById('pauseBtn').innerText = isPaused ? lang.btnResume : lang.btnPause;
+}
+
 
 
 
@@ -1902,40 +2401,49 @@ let currentLang = languages.en;
         }
 
 
-        // helper to store language using localStorage (works with file:// too)
-        function savePreferredLang(code) {
-            try {
-                localStorage.setItem('preferredLang', code);
-            } catch (e) {
-                // if storage is disabled for some reason, fail silently
-            }
-        }
 
-        function loadPreferredLang() {
-            try {
-                return localStorage.getItem('preferredLang');
-            } catch (e) {
-                return null;
-            }
-        }
 
-        document.getElementById('langSelect').addEventListener('change', (e) => {
-            const selectedCode = e.target.value;
-            const langData = languages[selectedCode];
-    
-            if (langData) {
-                applyLanguage(langData);
-                savePreferredLang(selectedCode);
-            }
-        });
+
+// disaster eastern egg
+
+function setupEasterEggs() {
+    // Hungry cow -> Illness
+    document.getElementById('ui-legHungry').parentElement.onclick = () => {
+        handleEasterEggClick('illness');
+    };
+
+    // Eating cow -> Fire
+    document.getElementById('ui-legEating').parentElement.onclick = () => {
+        handleEasterEggClick('fire');
+    };
+
+    // Sick cow -> Flood
+    document.getElementById('ui-legSick').parentElement.onclick = () => {
+        handleEasterEggClick('flood');
+    };
+}
+
+function handleEasterEggClick(type) {
+    if (disasterActive) return;
+
+    easterEggCounters[type]++;
+    //console.log(`Easter Egg progres for ${type}: ${easterEggCounters[type]}/20`);
+
+    if (easterEggCounters[type] >= 30) {
+        easterEggCounters.illness = 0;
+        easterEggCounters.fire = 0;
+        easterEggCounters.flood = 0;
+
+        disastersOccurred[type] = false; 
         
-        // when the page loads, check if a preference is stored
-        const savedLang = loadPreferredLang();
-        if (savedLang && languages[savedLang]) {
-            // select value and apply
-            document.getElementById('langSelect').value = savedLang;
-            applyLanguage(languages[savedLang]);
-        }
+        startDisaster(type);
+        //console.log("Easter Egg activated: " + type);
+    }
+}
+
+setupEasterEggs();
+
+
 
 
         setupControls();
